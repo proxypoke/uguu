@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# uguu - generate flexget config files.
+# uguu - generate Flexget config files.
 #
 # Author: slowpoke <mail+git@slowpoke.io>
 #
@@ -87,3 +87,34 @@ def generate_config(uguu_conf_path, flexget_conf_path):
         'tasks': tasks,
     }
     write_config(flexget_conf, flexget_conf_path)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="generate Flexget config files")
+
+    parser.add_argument('uguu', type=str, metavar='uguu_config',
+                        help='the uguu configuration file to read from')
+    parser.add_argument('flexget', type=str, metavar='flexget_config',
+                        help='the Flexget configuration file to output to')
+    parser.add_argument('-o', '--overwrite', action='store_true',
+                        help='overwrite if the config already exists')
+
+    args = parser.parse_args()
+
+    # check if the uguu config exists
+    if not os.access(args.uguu, os.F_OK):
+        print("Error: uguu config {0} does not exist.".format(args.uguu))
+        exit(1)
+    # check if the flexget config exists.
+    if os.access(args.flexget, os.F_OK) and not args.overwrite:
+        print("Error: Flexget config {0} exists. Use -o to overwrite.".format(
+            args.flexget))
+        exit(1)
+
+    generate_config(args.uguu, args.flexget)
+    print("Flexget configuration file written to {0}.".format(args.flexget))
+    exit(0)
+
+if __name__ == "__main__":
+    main()
