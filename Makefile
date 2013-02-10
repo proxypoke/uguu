@@ -16,6 +16,7 @@ clean:
 	rm -f *.pyc
 	rm -f *.pyo
 	rm -f *.log
+	rm -rf __pycache__
 
 .PHONY: mrproper
 mrproper:

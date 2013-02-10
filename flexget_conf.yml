@@ -1,0 +1,33 @@
+presets:
+  global:
+    regexp:
+      reject:
+        - .*
+      accept:
+        - Foobar|Baz
+    set:
+      path: /path/to/torrents
+      movedone: /path/to/downloads
+    download: yes
+    deluge:
+      label: derp
+      queuetotop: yes
+tasks:
+  herp:
+    rss: http://www.nyaa.eu/?page=rss
+    series:
+      - herp:
+          from_group: Derpadurr
+  derp:
+    rss: http://www.nyaa.eu/?page=rss
+    series:
+      - derp:
+          quality: 1080p
+  hurr:
+    rss: http://www.nyaa.eu/?page=rss
+    series:
+      - hurr
+  durr:
+    rss: http://www.nyaa.eu/?page=rss
+    series:
+      - durr
