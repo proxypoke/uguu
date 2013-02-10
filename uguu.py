@@ -77,7 +77,8 @@ def _generate_task(name, task, series):
         task['series'] = [name]
 
 
-def generate_config(uguu_conf_path, flexget_conf_path):
+#def generate_config(uguu_conf_path, flexget_conf_path):
+def generate_config(uguu_conf_path):
     '''Generate a flexget config from an uguu config.'''
     uguu_conf = read_config(uguu_conf_path)
     presets = generate_presets(uguu_conf)
@@ -86,7 +87,8 @@ def generate_config(uguu_conf_path, flexget_conf_path):
         'presets': presets,
         'tasks': tasks,
     }
-    write_config(flexget_conf, flexget_conf_path)
+    return yaml.dump(flexget_conf)
+    #write_config(flexget_conf, flexget_conf_path)
 
 
 def main():
@@ -95,10 +97,6 @@ def main():
 
     parser.add_argument('uguu', type=str, metavar='uguu_config',
                         help='the uguu configuration file to read from')
-    parser.add_argument('flexget', type=str, metavar='flexget_config',
-                        help='the Flexget configuration file to output to')
-    parser.add_argument('-o', '--overwrite', action='store_true',
-                        help='overwrite if the config already exists')
 
     args = parser.parse_args()
 
@@ -106,14 +104,8 @@ def main():
     if not os.access(args.uguu, os.F_OK):
         print("Error: uguu config {0} does not exist.".format(args.uguu))
         exit(1)
-    # check if the flexget config exists.
-    if os.access(args.flexget, os.F_OK) and not args.overwrite:
-        print("Error: Flexget config {0} exists. Use -o to overwrite.".format(
-            args.flexget))
-        exit(1)
 
-    generate_config(args.uguu, args.flexget)
-    print("Flexget configuration file written to {0}.".format(args.flexget))
+    print(generate_config(args.uguu))
     exit(0)
 
 if __name__ == "__main__":
