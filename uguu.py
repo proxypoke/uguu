@@ -51,6 +51,22 @@ def _generate_global(global_preset, opts):
 
     if len(regexp) > 0:
         global_preset['regexp'] = regexp
+
+    set = dict()
+
+    if 'path' in opts:
+        set['path'] = opts['path']
+    if 'movedone' in opts:
+        set['movedone'] = opts['movedone']
+
+    if len(set) > 0:
+        global_preset['set'] = set
+        # NOTE: 'download' is an implied setting.
+        global_preset['download'] = True
+
+    if 'deluge' in opts:
+        global_preset['deluge'] = opts['deluge']
+
     return
 
 
@@ -77,7 +93,6 @@ def _generate_task(name, task, series):
         task['series'] = [name]
 
 
-#def generate_config(uguu_conf_path, flexget_conf_path):
 def generate_config(uguu_conf_path):
     '''Generate a flexget config from an uguu config.'''
     uguu_conf = read_config(uguu_conf_path)
@@ -87,8 +102,7 @@ def generate_config(uguu_conf_path):
         'presets': presets,
         'tasks': tasks,
     }
-    return yaml.dump(flexget_conf)
-    #write_config(flexget_conf, flexget_conf_path)
+    return flexget_conf
 
 
 def main():
@@ -105,7 +119,7 @@ def main():
         print("Error: uguu config {0} does not exist.".format(args.uguu))
         exit(1)
 
-    print(generate_config(args.uguu))
+    print(yaml.dump(generate_config(args.uguu)))
     exit(0)
 
 if __name__ == "__main__":
