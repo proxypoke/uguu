@@ -14,7 +14,7 @@
 from distutils.core import setup
 
 setup(name='uguu',
-      version=1.0,
+      version='1.0.1',
       author='slowpoke',
       author_email='mail+git@slowpoke.io',
       url='https://github.com/proxypoke/uguu',
