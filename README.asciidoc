@@ -23,11 +23,11 @@ to download a series without batches using flexget.
 
 CONFIGURATION
 -------------
-The configuration of uguu is based on series. It uses a YAML - just like Flexget
-does. Every series has an RSS feed and a number of optional settings. These
-correspond to Flexget's options for series, such as *from_group* or *quality*.
-Series are mapped to a feed of the same name, which will contain the RSS feed
-and a series entry with the settings, if any.
+The configuration of uguu is based on series. It uses a YAML configuration file
+- just like Flexget does. Every series has a RSS feed and a number of optional
+  settings. These correspond to Flexget's options for series, such as
+*from_group* or *quality*.  Series are mapped to a feed of the same name, which
+will contain the RSS feed and a series entry with the settings, if any.
 
 Additionally, it has a global options field, where the processing of entries is
 configured. They are mapped to the special *global* preset in Flexget, which -
