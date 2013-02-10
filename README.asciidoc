@@ -1,0 +1,18 @@
+UGUU(1)
+=======
+slowpoke <mail+git@slowpoke.io>
+:encoding: utf-8
+:doctype: manpage
+:man source: Tinfoil Wizards Inc.
+:man manual: Weeaboo Toolkit Manual
+
+NAME
+----
+uguu - Generate flexget config files.
+
+DESCRIPTION
+-----------
+uguu is a tool to generate flexget configuration files, which aren't well suited
+to some use cases, one being having a separate feed for every series, which is
+important for fast moving RSS feeds such as Nyaatorrents, or simply if one likes
+to download a series without batches using flexget.
