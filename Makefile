@@ -8,11 +8,11 @@ doc:
 
 .PHONY: man
 man:
-	a2x --doctype manpage --format manpage README.asciidoc
+	a2x --doctype manpage --format manpage README.asciidoc -D man
+	gzip -f man/*
 
 .PHONY: clean
 clean:
-	rm -f *.1
 	rm -f *.pyc
 	rm -f *.pyo
 	rm -f *.log
@@ -20,6 +20,7 @@ clean:
 
 .PHONY: mrproper
 mrproper:
+	rm -f man/* --interactive=never
 	rm -f *.sqlite
 	make clean
 	rm -rf dist

@@ -26,8 +26,9 @@ CONFIGURATION
 The configuration of uguu is based on series. It uses a YAML configuration file
 - just like Flexget does. Every series has a RSS feed and a number of optional
   settings. These correspond to Flexget's options for series, such as
-*from_group* or *quality*.  Series are mapped to a feed of the same name, which
-will contain the RSS feed and a series entry with the settings, if any.
+*from_group* or *quality* (see http://flexget.com/wiki/Plugins/series). Series
+are mapped to a task of the same name, which will contain the RSS feed and a
+series entry with the settings, if any.
 
 Additionally, it has a global options field, where the processing of entries is
 configured. They are mapped to the special *global* preset in Flexget, which -
@@ -60,3 +61,11 @@ A sample config might look like this:
         rss: http://www.nyaa.eu/?page=rss
       durr:
         rss: http://www.nyaa.eu/?page=rss
+
+SEE ALSO
+--------
+uguu comes with a commented sample config, which should be found at
+/usr/share/doc/uguu/uguu_conf.yml. 
+
+For more information about Flexget, head to http://flexget.com. Unfortunately,
+Flexget does not have a man page.
