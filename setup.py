@@ -14,13 +14,17 @@
 from distutils.core import setup
 
 setup(name='uguu',
-      version='1.0.1',
+      version='1.1.0',
       author='slowpoke',
       author_email='mail+git@slowpoke.io',
       url='https://github.com/proxypoke/uguu',
       description='generate Flexget config files',
       requires=['pyyaml'],
       scripts=['uguu'],
+      data_files=[
+          ('/usr/share/man/man1', ['man/uguu.1.gz']),
+          ('/usr/share/doc/uguu', ['README.asciidoc', 'uguu_conf.yml']),
+      ],
       classifiers=[
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
