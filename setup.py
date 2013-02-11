@@ -14,7 +14,7 @@
 from distutils.core import setup
 
 setup(name='uguu',
-      version='1.1.0',
+      version='1.1.1',
       author='slowpoke',
       author_email='mail+git@slowpoke.io',
       url='https://github.com/proxypoke/uguu',
@@ -24,6 +24,7 @@ setup(name='uguu',
       data_files=[
           ('/usr/share/man/man1', ['man/uguu.1.gz']),
           ('/usr/share/doc/uguu', ['README.asciidoc', 'uguu_conf.yml']),
+          ('/usr/share/licenses/uguu', ['COPYING']),
       ],
       classifiers=[
           'Programming Language :: Python :: 2.7',
