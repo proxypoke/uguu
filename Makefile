@@ -18,10 +18,15 @@ clean:
 	rm -f *.log
 	rm -rf __pycache__
 
+.PHONY: arch
+arch:
+	makepkg --clean -p arch/PKGBUILD
+
 .PHONY: mrproper
 mrproper:
-	rm -f man/* --interactive=never
 	rm -f *.sqlite
+	rm -f *.tar.xz
+	rm -f *.zip
 	make clean
 	rm -rf dist
 	python setup.py clean
