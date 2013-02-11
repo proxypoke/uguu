@@ -9,7 +9,7 @@ doc:
 .PHONY: man
 man:
 	a2x --doctype manpage --format manpage README.asciidoc -D man
-	gzip -f man/*
+	gzip -f man/*.1
 
 .PHONY: clean
 clean:
