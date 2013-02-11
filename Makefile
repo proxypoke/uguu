@@ -22,3 +22,5 @@ clean:
 mrproper:
 	rm -f *.sqlite
 	make clean
+	rm -rf dist
+	python setup.py clean
