@@ -1,13 +1,35 @@
+# This is an example config for uguu. It generates a valid, but useless flexget
+# configuration file, which you can verify with 
+#     flexget -c /path/to/generated/config --check
+# For more information about Flexget, head to https://flexget.com.
+
+# Global options. These apply to all series.
 options:
+  # Regular expression to reject.
   reject:
     - .*
+  # Regular expressions to accept.
   accept:
     - Foobar|Baz
+  # Where to save downloads.
   path: /path/to/torrents
+  # When using a torrent client as output, this configures where to move the
+  # files after the torrent has finished downloading.
   movedone: /path/to/downloads
+  # Use deluge as the output.
   deluge:
+    # What label deluge should use.
     label: derp
+    # Should torrents be queued at the top when they are added?
     queuetotop: yes
+
+# Series configuration. Every entry is the name of the series, which should
+# correspond to the filename used in the feed. It's especially important to
+# distinguish between 'file_name' and 'file name'.
+#
+# Every series must have an rss feed, and can optionally have various options,
+# which correspond to the options of the series plugin of flexget. For more
+# information about those, see http://flexget.com/wiki/Plugins/series.
 series:
   herp:
     rss: http://www.nyaa.eu/?page=rss
