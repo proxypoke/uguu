@@ -33,6 +33,10 @@ Additionally, it has a global options field, where the processing of entries is
 configured. They are mapped to the special *global* preset in Flexget, which -
 as the name suggests - is applied to all tasks.
 
+Currently, uguu only supports the *download* and *deluge* output plugins, though
+adding others should be fairly trivial. Take note that *download* is an implied
+setting - it will automatically be turned on if *path* is set.
+
 A sample config might look like this:
 
     options:
@@ -40,6 +44,11 @@ A sample config might look like this:
         - .*
       accept:
         - Foobar|Baz
+      path: /path/to/torrents"
+      movedone: /path/to/files"
+      deluge:
+        label: "uguu"
+        queuetotop: yes
     series:
       herp:
         rss: http://www.nyaa.eu/?page=rss
