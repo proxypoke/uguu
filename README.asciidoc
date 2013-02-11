@@ -12,7 +12,7 @@ uguu - Generate Flexget config files.
 
 SYNOPSIS
 --------
-uguu [-h] [-o] uguu_config flexget_config
+uguu [-h] uguu_config
 
 DESCRIPTION
 -----------
