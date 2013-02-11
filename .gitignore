@@ -1,3 +1,4 @@
 # ignore generated manpages
 *.1
 *.py[co]
+MANIFEST
