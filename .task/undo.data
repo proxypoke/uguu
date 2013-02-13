@@ -18,3 +18,7 @@ new [description:"Move out the downloading into its own command ( uguuget?)." en
 time 1360768814
 new [description:"Move out the downloading into its own command ( uguuget?)." entry:"1360768814" project:"TODO" status:"pending" uuid:"0faf04f9-4bbb-4b78-ab0f-7062954a28d6"]
 ---
+time 1360768888
+old [description:"Move out the downloading into its own command ( uguuget?)." entry:"1360768758" project:"TODO" status:"pending" uuid:"60aee811-1596-475f-8dac-9530c7c9ba23"]
+new [description:"Move out the downloading into its own command ( uguuget?)." end:"1360768887" entry:"1360768758" project:"TODO" status:"deleted" uuid:"60aee811-1596-475f-8dac-9530c7c9ba23"]
+---
