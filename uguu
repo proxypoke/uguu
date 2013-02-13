@@ -12,16 +12,25 @@
 # Format options for vim. Please adhere to them.
 # vim: set et ts=4 sw=4 tw=80:
 
-__version__ = 1.1.2
+__version__ = "1.1.2"
 
-import yaml
 import argparse
 import os
+import subprocess
+import tempfile
+import yaml
 
 
 def read_config(path):
     cfg = open(path, mode='r')
     return yaml.load(cfg)
+
+
+def write_config(config, path):
+    cfg_file = open(path, mode='w')
+    yml = yaml.dump(config)
+    cfg_file.write(yml)
+    cfg_file.close()
 
 
 def generate_presets(config):
@@ -88,9 +97,8 @@ def _generate_task(name, task, series):
         task['series'] = [name]
 
 
-def generate_config(uguu_conf_path):
+def generate_config(uguu_conf):
     '''Generate a flexget config from an uguu config.'''
-    uguu_conf = read_config(uguu_conf_path)
     presets = generate_presets(uguu_conf)
     tasks = generate_tasks(uguu_conf)
     flexget_conf = {
@@ -100,24 +108,97 @@ def generate_config(uguu_conf_path):
     return flexget_conf
 
 
+def check_flexget():
+    '''Check if flexget is available.'''
+    try:
+        devnull = open(os.devnull)
+        subprocess.Popen(
+            ['flexget', '-h'], stdout=devnull, stderr=devnull).communicate()
+    except OSError as e:
+        if e.errno == os.errno.ENOENT:
+            return False
+    return True
+
+
+def download_series(name, feed, path='.', movedone='.', output='deluge',
+                    series_opts=None, output_opts=None):
+    '''Download a series using a temporary flexget config.'''
+    output_opts = {} if output_opts is None else output_opts
+    series_opts = {} if series_opts is None else series_opts
+    series_opts['rss'] = feed
+    cfg = {
+        'options': {
+            'path': path,
+            'movedone': movedone,
+            output: output_opts,
+        },
+        'series': {
+            name: series_opts,
+        }
+    }
+    flexget_conf = generate_config(cfg)
+    file_ = tempfile.NamedTemporaryFile(mode='w', delete=False)
+    file_.write(yaml.dump(flexget_conf))
+    file_.close()
+    subprocess.Popen(['flexget', '-c', file_.name]).communicate()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="generate Flexget config files")
 
-    parser.add_argument('-c', '--config', metavar='CONFIG', dest='uguu',
-                        default='~/.uguu/config.yml',
-                        help='path to the uguu configuration file ' +
-                        '(default: ~/.uguu/config.yml')
+    config_group = parser.add_argument_group(
+        'Configs', 'Generate config files for Flexget.')
+    config_group.add_argument(
+        '-c', '--config', metavar='CONFIG', dest='uguu',
+        default='~/.uguu/config.yml', help='''path to the uguu configuration
+        file (default: ~/.uguu/config.yml''')
+
+    dl_group = parser.add_argument_group(
+        'Download', 'Download series using a temporary Flexget config.')
+    dl_group.add_argument(
+        '-d', '--download', metavar='SERIES', dest='series', default=None,
+        help='download a series using a temporary flexget config')
+    dl_group.add_argument(
+        '-f', '--feed', metavar='URL', default=None,
+        help='the feed from which to download the series with.')
+    dl_group.add_argument(
+        '-o', '--output', default='deluge', choices=['deluge'],
+        help='output to use (default: deluge)')
+    dl_group.add_argument(
+        '-t', '--target-directory', metavar='DIR', default='.', dest='path',
+        help='directory to download to (default: current directory')
+    dl_group.add_argument(
+        '-m', '--movedone', metavar='DIR', default='.',
+        help=''''directory to move the finished downloads to (default: current
+        directory)''')
 
     args = parser.parse_args()
 
-    # check if the uguu config exists
-    if not os.access(args.uguu, os.F_OK):
-        print("Error: uguu config {0} does not exist.".format(args.uguu))
-        exit(1)
+    # check whether we want to generate a config or download a series.
+    if args.series is None:
+        # check if the uguu config exists
+        if not os.access(args.uguu, os.F_OK):
+            print("Error: uguu config {0} does not exist.".format(args.uguu))
+            exit(1)
+        uguu_conf = read_config(args.uguu)
+        print(yaml.dump(generate_config(uguu_conf)))
+        exit(0)
+    else:
+        # check if flexget exists
+        if not check_flexget():
+            print('''Error: flexget does not seem to be installed. This feature
+                  requires flexget to work. Please make sure that flexget is in
+                  your PATH.''')
+            exit(1)
+        # check if we've been given a feed
+        if args.feed is None:
+            print("Error: No feed given. Use -f to specify a feed URL.")
+            exit(1)
+        download_series(args.series, args.feed, path=args.path,
+                        movedone=args.movedone)
+        exit(0)
 
-    print(yaml.dump(generate_config(args.uguu)))
-    exit(0)
 
 if __name__ == "__main__":
     main()
