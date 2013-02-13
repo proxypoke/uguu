@@ -12,3 +12,6 @@ time 1360753489
 old [description:"Flag to download a series with a temporary Flexget config." entry:"1360611323" project:"Feature" status:"pending" uuid:"0347c6d7-867e-42d9-8eb0-f2c8119b783e"]
 new [description:"Flag to download a series with a temporary Flexget config." entry:"1360611323" project:"Feature" start:"1360753489" status:"pending" uuid:"0347c6d7-867e-42d9-8eb0-f2c8119b783e"]
 ---
+time 1360768758
+new [description:"Move out the downloading into its own command ( uguuget?)." entry:"1360768758" project:"TODO" status:"pending" uuid:"60aee811-1596-475f-8dac-9530c7c9ba23"]
+---
