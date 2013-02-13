@@ -12,7 +12,7 @@
 # Format options for vim. Please adhere to them.
 # vim: set et ts=4 sw=4 tw=80:
 
-__version__ = 1.0
+__version__ = 1.1.2
 
 import yaml
 import argparse
@@ -22,13 +22,6 @@ import os
 def read_config(path):
     cfg = open(path, mode='r')
     return yaml.load(cfg)
-
-
-def write_config(config, path):
-    cfg_file = open(path, mode='w')
-    yml = yaml.dump(config)
-    cfg_file.write(yml)
-    cfg_file.close()
 
 
 def generate_presets(config):
@@ -111,8 +104,10 @@ def main():
     parser = argparse.ArgumentParser(
         description="generate Flexget config files")
 
-    parser.add_argument('uguu', type=str, metavar='uguu_config',
-                        help='the uguu configuration file to read from')
+    parser.add_argument('-c', '--config', metavar='CONFIG', dest='uguu',
+                        default='~/.uguu/config.yml',
+                        help='path to the uguu configuration file ' +
+                        '(default: ~/.uguu/config.yml')
 
     args = parser.parse_args()
 
