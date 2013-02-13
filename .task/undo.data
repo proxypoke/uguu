@@ -4,3 +4,7 @@ new [description:"Flag to download a series with a temporary Flexget config." en
 time 1360611813
 new [description:"Make specifying a config optional ( flag). Use \/home\/ slowpoke\/.uguu\/conf.yml instead." entry:"1360611813" project:"Feature" status:"pending" uuid:"48efd8dd-1936-45dd-a8ce-746a73f94c7e"]
 ---
+time 1360753469
+old [description:"Make specifying a config optional ( flag). Use \/home\/ slowpoke\/.uguu\/conf.yml instead." entry:"1360611813" project:"Feature" status:"pending" uuid:"48efd8dd-1936-45dd-a8ce-746a73f94c7e"]
+new [description:"Make specifying a config optional ( flag). Use \/home\/ slowpoke\/.uguu\/conf.yml instead." end:"1360753469" entry:"1360611813" project:"Feature" status:"completed" uuid:"48efd8dd-1936-45dd-a8ce-746a73f94c7e"]
+---
