@@ -11,7 +11,7 @@
 # Format options for vim. Please adhere to them.
 # vim: set et ts=4 sw=4 tw=80:
 
-__version__ = "1.1.2"
+__version__ = "1.2.0"
 
 import os
 import subprocess

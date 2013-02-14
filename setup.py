@@ -11,16 +11,18 @@
 # Format options for vim. Please adhere to them.
 # vim: set et ts=4 sw=4 tw=80:
 
+import uguu
 from distutils.core import setup
 
 setup(name='uguu',
-      version='1.1.1',
+      version=uguu.__version__,
       author='slowpoke',
       author_email='mail+git@slowpoke.io',
       url='https://github.com/proxypoke/uguu',
       description='generate Flexget config files',
       requires=['pyyaml'],
-      scripts=['uguu'],
+      py_modules=['uguu'],
+      scripts=['uguu', 'uguu-get'],
       data_files=[
           ('/usr/share/man/man1', ['man/uguu.1.gz']),
           ('/usr/share/doc/uguu', ['README.asciidoc', 'uguu_conf.yml']),
