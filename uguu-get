@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+# uguu - generate flexget config files.
+#
+# Author: slowpoke <mail+git@slowpoke.io>
+#
+# This program is free software under the non-terms
+# of the Anti-License. Do whatever the fuck you want.
+#
+# Github: https://www.github.com/proxypoke/uguu
+# (Shortlink: https://git.io/uguu)
+#
+# Format options for vim. Please adhere to them.
+# vim: set et ts=4 sw=4 tw=80:
+
+import argparse
+
+import uguu
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='download series using temporary Flexget configs.')
+
+    parser.add_argument(
+        'series', metavar='SERIES',
+        help='download a series using a temporary flexget config')
+    parser.add_argument(
+        'feed', metavar='RSS',
+        help='the feed from which to download the series with.')
+    parser.add_argument(
+        '-o', '--output', default='deluge', choices=['deluge'],
+        help='output to use (default: deluge)')
+    parser.add_argument(
+        '-t', '--target-directory', metavar='DIR', default='.', dest='path',
+        help='directory to download to (default: current directory')
+    parser.add_argument(
+        '-m', '--movedone', metavar='DIR', default='.',
+        help=''''directory to move the finished downloads to (default: current
+        directory)''')
+
+    args = parser.parse_args()
+
+    # check if flexget exists
+    if not uguu.check_flexget():
+        print('''Error: flexget does not seem to be installed. This feature
+              requires flexget to work. Please make sure that flexget is in
+              your PATH.''')
+        exit(1)
+    # check if we've been given a feed
+    if args.feed is None:
+        print("Error: No feed given. Use -f to specify a feed URL.")
+        exit(1)
+    uguu.download_series(args.series, args.feed, path=args.path,
+                         movedone=args.movedone)
+    exit(0)
+
+
+if __name__ == "__main__":
+    main()
