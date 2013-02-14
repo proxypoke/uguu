@@ -28,7 +28,8 @@ if not os.access(flexget_conf_path, os.F_OK):
 
 flexget_conf = yaml.load(open(flexget_conf_path))
 
-generated_conf = uguu.generate_config(uguu_conf_path)
+uguu_conf = uguu.read_config(uguu_conf_path)
+generated_conf = uguu.generate_config(uguu_conf)
 
 if not flexget_conf == generated_conf:
     print("Generated and expected configs do not match.")
